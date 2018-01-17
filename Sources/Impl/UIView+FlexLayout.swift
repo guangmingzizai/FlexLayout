@@ -30,4 +30,15 @@ public extension UIView {
             return flex
         }
     }
+    
+    public func clearFlex() {
+        objc_setAssociatedObject(self, &flexLayoutAssociatedObjectHandle, nil, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+    }
+    
+    var isFlexEnabled: Bool {
+        get {
+            return (objc_getAssociatedObject(self, &flexLayoutAssociatedObjectHandle) != nil)
+        }
+    }
+    
 }

@@ -45,6 +45,8 @@ public class Flex {
         return yoga.intrinsicSize
     }
     
+    public var isScalable: Bool = false
+    
     init(view: UIView) {
         self.view = view
         self.yoga = view.yoga
@@ -78,6 +80,30 @@ public class Flex {
     @discardableResult
     public func addItem(_ view: UIView) -> Flex {
         self.view.addSubview(view)
+        return view.flex
+    }
+    
+    @discardableResult
+    public func insertItem(belowSubview siblingSubview: UIView) -> Flex {
+        let view = UIView()
+        return insertItem(view, belowSubview: siblingSubview)
+    }
+    
+    @discardableResult
+    public func insertItem(aboveSubview siblingSubview: UIView) -> Flex {
+        let view = UIView()
+        return insertItem(view, aboveSubview: siblingSubview)
+    }
+    
+    @discardableResult
+    public func insertItem(_ view: UIView, belowSubview siblingSubview: UIView) -> Flex {
+        self.view.insertSubview(view, belowSubview: siblingSubview)
+        return view.flex
+    }
+    
+    @discardableResult
+    public func insertItem(_ view: UIView, aboveSubview siblingSubview: UIView) -> Flex {
+        self.view.insertSubview(view, aboveSubview: siblingSubview)
         return view.flex
     }
 
@@ -147,6 +173,20 @@ public class Flex {
     @discardableResult
     public func markDirty() -> Flex {
         yoga.markDirty()
+        return self
+    }
+    
+    @discardableResult
+    public func markAllLabelAndButtonsDirty() -> Flex {
+        for subview in view.subviews {
+            if subview is UILabel {
+                subview.flex.markDirty()
+            } else if subview is UIButton {
+                subview.flex.markDirty()
+            } else if subview.subviews.count > 0 {
+                subview.flex.markAllLabelAndButtonsDirty()
+            }
+        }
         return self
     }
     
@@ -1092,4 +1132,133 @@ public class Flex {
         case hidden
         case scroll
     }*/
+}
+
+// MARK: - Scalable
+public extension Flex {
+    public func scalable(force: Bool = false, base: ScaleBase = .width, referenceSize: CGSize = CGSize(width: 375, height: 667)) {
+        if view.isFlexEnabled && view.isYogaEnabled && (!isScalable || force) {
+            scalableYoga(yoga: yoga, base: base, referenceSize: referenceSize)
+            isScalable = true
+            
+            for subview in view.subviews {
+                if subview.isFlexEnabled && subview.isYogaEnabled {
+                    subview.flex.scalable(base: base, referenceSize: referenceSize)
+                }
+            }
+        }
+    }
+    
+    internal func scalableYoga(yoga: YGLayout, base: ScaleBase = .width, referenceSize: CGSize = CGSize(width: 375, height: 667)) {
+        if checkYGValue(value: yoga.top) {
+            yoga.top.value = scalableValue(value: yoga.top.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.left) {
+            yoga.left.value = scalableValue(value: yoga.left.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.bottom) {
+            yoga.bottom.value = scalableValue(value: yoga.bottom.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.right) {
+            yoga.right.value = scalableValue(value: yoga.right.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.width) {
+            yoga.width.value = scalableValue(value: yoga.width.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.height) {
+            yoga.height.value = scalableValue(value: yoga.height.value, base: base, referenceSize: referenceSize)
+        }
+        
+        if checkYGValue(value: yoga.marginTop) {
+            yoga.marginTop.value = scalableValue(value: yoga.marginTop.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.marginLeft) {
+            yoga.marginLeft.value = scalableValue(value: yoga.marginLeft.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.marginBottom) {
+            yoga.marginBottom.value = scalableValue(value: yoga.marginBottom.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.marginRight) {
+            yoga.marginRight.value = scalableValue(value: yoga.marginRight.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.marginHorizontal) {
+            yoga.marginHorizontal.value = scalableValue(value: yoga.marginHorizontal.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.marginVertical) {
+            yoga.marginVertical.value = scalableValue(value: yoga.marginVertical.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.margin) {
+            yoga.margin.value = scalableValue(value: yoga.margin.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.marginStart) {
+            yoga.marginStart.value = scalableValue(value: yoga.marginStart.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.marginEnd) {
+            yoga.marginEnd.value = scalableValue(value: yoga.marginEnd.value, base: base, referenceSize: referenceSize)
+        }
+
+        if checkYGValue(value: yoga.paddingTop) {
+            yoga.paddingTop.value = scalableValue(value: yoga.paddingTop.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.paddingLeft) {
+            yoga.paddingLeft.value = scalableValue(value: yoga.paddingLeft.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.paddingBottom) {
+            yoga.paddingBottom.value = scalableValue(value: yoga.paddingBottom.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.paddingRight) {
+            yoga.paddingRight.value = scalableValue(value: yoga.paddingRight.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.paddingHorizontal) {
+            yoga.paddingHorizontal.value = scalableValue(value: yoga.paddingHorizontal.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.paddingVertical) {
+            yoga.paddingVertical.value = scalableValue(value: yoga.paddingVertical.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.padding) {
+            yoga.padding.value = scalableValue(value: yoga.padding.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.paddingStart) {
+            yoga.paddingStart.value = scalableValue(value: yoga.paddingStart.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.paddingEnd) {
+            yoga.paddingEnd.value = scalableValue(value: yoga.paddingEnd.value, base: base, referenceSize: referenceSize)
+        }
+
+        if checkYGValue(value: yoga.minWidth) {
+            yoga.minWidth.value = scalableValue(value: yoga.minWidth.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.minHeight) {
+            yoga.minHeight.value = scalableValue(value: yoga.minHeight.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.maxWidth) {
+            yoga.maxWidth.value = scalableValue(value: yoga.maxWidth.value, base: base, referenceSize: referenceSize)
+        }
+        if checkYGValue(value: yoga.maxHeight) {
+            yoga.maxHeight.value = scalableValue(value: yoga.maxHeight.value, base: base, referenceSize: referenceSize)
+        }
+    }
+    
+    internal func checkYGValue(value: YGValue) -> Bool {
+        return (value.unit == .point || value.unit == .percent || value.unit == .undefined)
+    }
+    
+    internal func scalableYGValue(value: YGValue, base: ScaleBase = .width, referenceSize: CGSize = CGSize(width: 375, height: 667)) -> YGValue {
+        var ygValue = value
+        if value.unit == .point || value.unit == .percent || value.unit == .undefined {
+            ygValue.value = scalableValue(value: ygValue.value, base: base, referenceSize: referenceSize)
+        }
+        return ygValue
+    }
+    
+    internal func scalableValue(value: Float, base: ScaleBase = .width, referenceSize: CGSize = CGSize(width: 375, height: 667)) -> Float {
+        let referenceWidth = Float(referenceSize.width), referenceHeight = Float(referenceSize.height)
+        let screenWidth = Float(UIScreen.main.bounds.width), screenHeight = Float(UIScreen.main.bounds.height)
+        
+        return (value * (base == .width ? (screenWidth / referenceWidth) : (screenHeight / referenceHeight)))
+    }
+    
+    public enum ScaleBase {
+        case width, height
+    }
 }
