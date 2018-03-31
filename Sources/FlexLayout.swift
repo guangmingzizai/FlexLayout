@@ -45,7 +45,9 @@ public class Flex {
         return yoga.intrinsicSize
     }
     
-    public var isScalable: Bool = false
+    public var isScalable = true
+    public var isWholeScalable = true
+    public var scaled = false
     
     init(view: UIView) {
         self.view = view
@@ -55,6 +57,20 @@ public class Flex {
         yoga.isEnabled = true
     }
 
+    // only disable current view scalablity, **not** include subviews
+    @discardableResult
+    public func disableScalablity() -> Flex {
+        isScalable = false
+        return self
+    }
+    
+    // disable current view scalablity, include subviews
+    @discardableResult
+    public func disableWholeScalablity() -> Flex {
+        isWholeScalable = false
+        return self
+    }
+    
     //
     // MARK: Flex item addition and definition
     //
@@ -107,6 +123,17 @@ public class Flex {
         return view.flex
     }
 
+    @discardableResult
+    public func removeAllItems() -> Flex {
+        for subview in view.subviews {
+            subview.removeFromSuperview()
+            subview.flex.markDirty()
+            subview.clearYoga()
+            subview.clearFlex()
+        }
+        return view.flex
+    }
+    
     /**
      This method is used to structure your code so that it matches the flexbox structure. The method has a closure parameter with a
      single parameter called `flex`. This parameter is in fact, the view's flex interface, it can be used to adds other flex items
@@ -1137,13 +1164,17 @@ public class Flex {
 // MARK: - Scalable
 public extension Flex {
     public func scalable(force: Bool = false, base: ScaleBase = .width, referenceSize: CGSize = CGSize(width: 375, height: 667)) {
-        if view.isFlexEnabled && view.isYogaEnabled && (!isScalable || force) {
-            scalableYoga(yoga: yoga, base: base, referenceSize: referenceSize)
-            isScalable = true
+        if view.isFlexEnabled && view.isYogaEnabled && (!scaled || force) {
+            if isScalable && isWholeScalable {
+                scalableYoga(yoga: yoga, base: base, referenceSize: referenceSize)
+                scaled = true
+            }
             
-            for subview in view.subviews {
-                if subview.isFlexEnabled && subview.isYogaEnabled {
-                    subview.flex.scalable(base: base, referenceSize: referenceSize)
+            if isWholeScalable {
+                for subview in view.subviews {
+                    if subview.isFlexEnabled && subview.isYogaEnabled {
+                        subview.flex.scalable(base: base, referenceSize: referenceSize)
+                    }
                 }
             }
         }

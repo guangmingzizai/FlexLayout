@@ -452,6 +452,7 @@ static void YGApplyLayoutToViewHierarchy(UIView *view, BOOL preserveOrigin)
   };
 
   const CGPoint origin = preserveOrigin ? view.frame.origin : CGPointZero;
+    
   view.frame = (CGRect) {
     .origin = {
       .x = YGRoundPixelValue(topLeft.x + origin.x),
