@@ -33,6 +33,7 @@
 		24DAEB9B1FCB9B1600066520 /* YogaKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24DAEB981FCB9B0100066520 /* YogaKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		24EB77E61FE9C24E00C979AA /* YogaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24DAEB981FCB9B0100066520 /* YogaKit.framework */; };
 		24FB88591F5ED2B800615D33 /* JustifyContentSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FB88581F5ED2B800615D33 /* JustifyContentSpec.swift */; };
+		6C5A811B2071ECEC007966CE /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5A811A2071ECEC007966CE /* UILabelExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		24DA37681EF843C500D1AB2F /* FlexLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexLayoutTests.swift; sourceTree = "<group>"; };
 		24DAEB981FCB9B0100066520 /* YogaKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YogaKit.framework; path = Carthage/Build/iOS/YogaKit.framework; sourceTree = "<group>"; };
 		24FB88581F5ED2B800615D33 /* JustifyContentSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustifyContentSpec.swift; sourceTree = "<group>"; };
+		6C5A811A2071ECEC007966CE /* UILabelExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 		24AE972D1FEAF30A00995987 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				6C5A81192071ECEC007966CE /* Extension */,
 				24AE972E1FEAF30A00995987 /* FlexLayout.swift */,
 				24AE972F1FEAF30A00995987 /* Impl */,
 				24AE97331FEAF30A00995987 /* Percent.swift */,
@@ -193,6 +196,14 @@
 				24170EDA1FC7178E005AF96F /* RectNimbleMatcher.swift */,
 			);
 			path = FlexLayoutTests;
+			sourceTree = "<group>";
+		};
+		6C5A81192071ECEC007966CE /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				6C5A811A2071ECEC007966CE /* UILabelExtension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		B5403C6F81C3814B69C05D0B /* Frameworks */ = {
@@ -351,6 +362,7 @@
 				24AE973F1FEAF30A00995987 /* FlexLayout+Enum.swift in Sources */,
 				24AE97491FEAF30A00995987 /* YGLayout.m in Sources */,
 				24AE97461FEAF30A00995987 /* UIView+Yoga.m in Sources */,
+				6C5A811B2071ECEC007966CE /* UILabelExtension.swift in Sources */,
 				24AE973E1FEAF30A00995987 /* FlexLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
