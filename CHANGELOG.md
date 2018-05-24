@@ -7,6 +7,67 @@
 
 # Change Log
 
+## [1.3.8](https://github.com/layoutBox/FlexLayout/releases/tag/1.3.8)
+Released on 2018-05-09
+
+* Add `display(:Display)` method to set the Yoga's display property.
+	* Added by [cielpy](https://github.com/cielpy) in Pull Request [#87](https://github.com/layoutBox/FlexLayout/pull/87) 
+
+## [1.3.7](https://github.com/layoutBox/FlexLayout/releases/tag/1.3.7)
+Released on 2018-05-01
+
+* Upgrade to Swift 4.1
+	* Added by [Luc Dion](https://github.com/lucdion) in Pull Request [#85](https://github.com/layoutBox/FlexLayout/pull/85) 
+
+## [1.3.6](https://github.com/layoutBox/FlexLayout/releases/tag/1.3.6)
+Released on 2018-04-16
+
+* Update the Podspec minimum iOS platform to 8.0
+	* Added by [Luc Dion](https://github.com/lucdion) in Pull Request [#78](https://github.com/layoutBox/FlexLayout/pull/78) 
+
+## [1.3.5](https://github.com/layoutBox/FlexLayout/releases/tag/1.3.5)
+Released on 2018-03-06
+
+* Add supports for `spaceEvenly` justifyContent mode
+	* Added by [Luc Dion](https://github.com/lucdion) in Pull Request [#66](https://github.com/layoutBox/FlexLayout/pull/66) 
+	
+* Flex view's getter is public once again.
+	* Added by [Alexander Guschin](https://github.com/Rag0n) in Pull Request [#68](https://github.com/layoutBox/FlexLayout/pull/68) 
+
+## [1.3.4](https://github.com/layoutBox/FlexLayout/releases/tag/1.3.3)
+Released on 2018-03-05
+
+* Fix retain cycle
+   * Now Flex's hosting view is kept using a weak reference.
+   * Fixed by [Alexey Zinchenko](https://github.com/zintus) in Pull Request [#64](https://github.com/layoutBox/FlexLayout/pull/64) 
+
+## [1.3.3](https://github.com/layoutBox/FlexLayout/releases/tag/1.3.3)
+Released on 2018-02-28
+
+* Fix Yoga's rounding issues
+   * Integer truncation of sizes calculated by sizeThatFits:, and utility functions. Introduced by Obj-C -> Obj-C++ conversion in previous PR
+   * Low coordinate rounding threshold, which results in flooring apparently valid values. Layout becomes very wrong with absolute coordinate values larger than 100 and having pointScaleFactor set to 3.
+   * Fixed by [Alexey Zinchenko](https://github.com/zintus) in Pull Request [#63](https://github.com/layoutBox/FlexLayout/pull/63) 
+
+## [1.3.2](https://github.com/layoutBox/FlexLayout/releases/tag/1.3.2)
+Released on 2018-02-27
+
+* Update Yoga core to latest master
+   * Yoga core updated to facebook/yoga@295d111
+   * Yoga core tests and their buck configuration added, see core-tests folder
+   * Add buck tests to CI config
+   * Added by [Alexey Zinchenko](https://github.com/zintus) in Pull Request [#62](https://github.com/layoutBox/FlexLayout/pull/62) 
+
+
+## [1.3.1](https://github.com/layoutBox/FlexLayout/releases/tag/1.3.1)
+Released on 2018-02-23
+
+* Integrates Yoga's sources into FlexLayout
+
+	* Added by [Luc Dion](https://github.com/lucdion) in Pull Request [#61](https://github.com/layoutBox/FlexLayout/pull/61) 
+
+
+
 ## [1.2.2](https://github.com/layoutBox/FlexLayout/releases/tag/1.2.2)
 Released on 2017-12-20
 
@@ -36,7 +97,7 @@ Released on 2017-12-20
 	  view.flex.marginHorizontal(10%)
 	```
   
-	* Added by [Luc Dion](https://github.com/layoutBox) in Pull Request [#49](https://github.com/layoutBox/FlexLayout/pull/49) 
+	* Added by [Luc Dion](https://github.com/lucdion) in Pull Request [#49](https://github.com/layoutBox/FlexLayout/pull/49) 
 
 
 
@@ -61,7 +122,7 @@ Released on 2017-11-23
 	
 * FlexLayout now integrates YogaKit source code, this was needed to improve efficiently the iOS's yoga interface.
   
-* Added by [Luc Dion](https://github.com/layoutBox) in Pull Request [#40](https://github.com/layoutBox/FlexLayout/pull/40) 
+* Added by [Luc Dion](https://github.com/lucdion) in Pull Request [#40](https://github.com/layoutBox/FlexLayout/pull/40) 
 
 
 ## [1.1.8](https://github.com/layoutBox/FlexLayout/releases/tag/1.1.8)
@@ -69,7 +130,7 @@ Released on 2017-11-23
 
 * AspectRatio can now be reset. Simply call `aspectRatio(nil)`.
   
-* Added by [Luc Dion](https://github.com/layoutBox) in Pull Request [#39](https://github.com/layoutBox/FlexLayout/pull/39) 
+* Added by [Luc Dion](https://github.com/lucdion) in Pull Request [#39](https://github.com/layoutBox/FlexLayout/pull/39) 
 
 ## [1.1.4](https://github.com/layoutBox/FlexLayout/releases/tag/1.1.4)
 Released on 2017-10-31
@@ -90,7 +151,7 @@ Released on 2017-10-31
 
 * Add an example of UICollectionView using FlexLayout
 
-* Added by [Luc Dion](https://github.com/layoutBox) in Pull Request [#33](https://github.com/layoutBox/FlexLayout/pull/33) 
+* Added by [Luc Dion](https://github.com/lucdion) in Pull Request [#33](https://github.com/layoutBox/FlexLayout/pull/33) 
 
 
 ## [1.1.4](https://github.com/layoutBox/FlexLayout/releases/tag/1.1.4)
@@ -109,14 +170,14 @@ Released on 2017-10-17
 	* view.flex.width(50%)
 	* view.flex.height(25%)
 	
-	* Added by [Luc Dion](https://github.com/layoutBox) in Pull Request [#28](https://github.com/layoutBox/FlexLayout/pull/28) 
+	* Added by [Luc Dion](https://github.com/lucdion) in Pull Request [#28](https://github.com/layoutBox/FlexLayout/pull/28) 
 
 
 ## [1.1.3](https://github.com/layoutBox/FlexLayout/releases/tag/1.1.3)
 Released on 2017-10-02
 
 * Add Carthage support
-  * Added by [Luc Dion](https://github.com/layoutBox) in Pull Request [#25](https://github.com/layoutBox/FlexLayout/pull/25) 
+  * Added by [Luc Dion](https://github.com/lucdion) in Pull Request [#25](https://github.com/layoutBox/FlexLayout/pull/25) 
 
 
 ## [1.1.0](https://github.com/layoutBox/FlexLayout/releases/tag/1.1.0)
@@ -124,9 +185,9 @@ Released on 2017-08-23
 
 * Add missing markDirty() method
 * :warning: BREAKING CHANGE: Renamed the method `addContainer()` to `addItem(). It is clearer that the added view is in fact a flex item, and not just a flex container.
-  * Added by [Luc Dion](https://github.com/layoutBox) in Pull Request [#8](https://github.com/layoutBox/FlexLayout/pull/8 ) 
+  * Added by [Luc Dion](https://github.com/lucdion) in Pull Request [#8](https://github.com/layoutBox/FlexLayout/pull/8 ) 
 * Add an implementation of the Ray Wenderlich Yoga Tutorial  
-  * Added by [Luc Dion](https://github.com/layoutBox) in Pull Request [#7](https://github.com/layoutBox/FlexLayout/pull/7) 
+  * Added by [Luc Dion](https://github.com/lucdion) in Pull Request [#7](https://github.com/layoutBox/FlexLayout/pull/7) 
 * Add Swift 4.0 support  
 
 ## [1.0.0](https://github.com/layoutBox/FlexLayout/releases/tag/1.0.0)

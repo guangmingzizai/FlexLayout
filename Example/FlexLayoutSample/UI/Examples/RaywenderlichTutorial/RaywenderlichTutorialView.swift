@@ -16,7 +16,7 @@ import UIKit
 import FlexLayout
 import PinLayout
 
-class RayWenderlichTutorialView: BaseView {
+class RayWenderlichTutorialView: UIView {
     fileprivate let contentView = UIScrollView()
     fileprivate let rootFlexContainer = UIView()
     fileprivate var showSelectedIndex = 0
@@ -28,12 +28,12 @@ class RayWenderlichTutorialView: BaseView {
     let episodeTitleLabel = UILabel()
     let descriptionLabel = UILabel()
     let showsTableView = ExpandedTableView()
-    
+
     init(series: Series) {
         self.series = series
         
-        super.init()
-        
+        super.init(frame: .zero)
+
         backgroundColor = .black
         
         let padding: CGFloat = 8
@@ -90,42 +90,42 @@ class RayWenderlichTutorialView: BaseView {
             flex.addItem(episodeImageView).grow(1).backgroundColor(.gray)
             
             // Summary row
-            flex.addItem().direction(.row).padding(padding).define({ (flex) in
+            flex.addItem().direction(.row).padding(padding).define { (flex) in
                 flex.addItem(summaryPopularityLabel).grow(1)
                 
-                flex.addItem().direction(.row).justifyContent(.spaceBetween).grow(2).define({ (flex) in
+                flex.addItem().direction(.row).justifyContent(.spaceBetween).grow(2).define { (flex) in
                     flex.addItem(yearLabel)
                     flex.addItem(ratingLabel)
                     flex.addItem(lengthLabel)
-                })
+                }
                 
                 flex.addItem().width(100).height(1).grow(1)
-            })
+            }
             
             // Title row
-            flex.addItem().direction(.row).padding(padding).define({ (flex) in
+            flex.addItem().direction(.row).padding(padding).define { (flex) in
                 flex.addItem(episodeIdLabel)
                 flex.addItem(episodeTitleLabel).marginLeft(20)
-            })
+            }
             
             // Description section
-            flex.addItem().paddingHorizontal(paddingHorizontal).define({ (flex) in
+            flex.addItem().paddingHorizontal(paddingHorizontal).define { (flex) in
                 flex.addItem(descriptionLabel)
                 flex.addItem(castLabel)
                 flex.addItem(creatorsLabel)
-            })
+            }
             
             // Action row
-            flex.addItem().direction(.row).padding(padding).define({ (flex) in
+            flex.addItem().direction(.row).padding(padding).define { (flex) in
                 flex.addItem(addActionView)
                 flex.addItem(shareActionView)
-            })
+            }
             
             // Tabs row
-            flex.addItem().direction(.row).padding(padding).define({ (flex) in
+            flex.addItem().direction(.row).padding(padding).define { (flex) in
                 flex.addItem(episodesTabView)
                 flex.addItem(moreTabView)
-            })
+            }
             
             // Shows TableView
             flex.addItem(showsTableView).grow(1)
@@ -148,7 +148,7 @@ class RayWenderlichTutorialView: BaseView {
         super.layoutSubviews()
 
         // 1) Layout the contentView & rootFlexContainer using PinLayout
-        contentView.pin.all().margin(safeArea)
+        contentView.pin.all(pin.safeArea)
         rootFlexContainer.pin.top().left().right()
 
         // 2) Let the flexbox container layout itself and adjust the height
@@ -209,7 +209,7 @@ class RayWenderlichTutorialView: BaseView {
         #if swift(>=4)
         let labelSize = text.size(withAttributes: [NSAttributedStringKey.font: tabLabelFont])
         #else
-        let labelSize = text.size(attributes: [NSFontAttributeName: tabLabelFont])
+        let labelSize = text.size(withAttributes: [NSAttributedStringKey.font: tabLabelFont])
         #endif
         
         let tabView = UIView()

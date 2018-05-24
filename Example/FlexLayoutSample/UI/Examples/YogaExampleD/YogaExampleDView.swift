@@ -16,11 +16,12 @@ import UIKit
 import FlexLayout
 import PinLayout
 
-class YogaExampleDView: BaseView {
+class YogaExampleDView: UIView {
     fileprivate let rootFlexContainer = UIView()
 
-    override init() {
-        super.init()
+    init() {
+        super.init(frame: .zero)
+        backgroundColor = .white
 
         let imageView = UIView()
         imageView.backgroundColor = .flexLayoutColor
@@ -45,7 +46,7 @@ class YogaExampleDView: BaseView {
 
         // Layout the flexbox container using PinLayout
         // NOTE: Could be also layouted by setting directly rootFlexContainer.frame
-        rootFlexContainer.pin.top().horizontally().margin(safeArea).height(300)
+        rootFlexContainer.pin.top(pin.safeArea).horizontally(pin.safeArea).height(300)
 
         // Then let the flexbox container layout itself
         rootFlexContainer.flex.layout()

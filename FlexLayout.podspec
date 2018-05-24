@@ -1,21 +1,26 @@
 
-Pod::Spec.new do |s|
-  s.name         = "FlexLayout"
-  s.version      = "1.2.2"
-  s.summary      = "FlexLayout"
-
-  s.homepage     = "https://github.com/lucdion/FlexLayout.git"
-  s.license      = "BSD 3-clause"
+Pod::Spec.new do |spec|
+  spec.name         = "FlexLayout"
+  spec.version      = "1.3.8"
+  spec.summary      = "FlexLayout"
+  spec.homepage     = "https://github.com/lucdion/FlexLayout.git"
+  spec.license      = "MIT license"
+  spec.author       = { "Luc Dion" => "luc_dion@yahoo.com" }
   
-  s.author             = { 
-    "Luc Dion" => "ldion@mirego.com"
-  }
-  
-  s.platform     = :ios, "9.0"
-
-  s.source       = { :git => "https://github.com/lucdion/FlexLayout.git", :tag => "#{s.version}" }
-  s.source_files  = "Sources/**/*.{swift,h,m}"
+  spec.platform     = :ios, "8.0"
+  spec.source       = { :git => "https://github.com/lucdion/FlexLayout.git", :tag => "#{spec.version}" }
+  spec.source_files = "Sources/**/*.{swift,h,m,mm,cpp,c}"
+  spec.public_header_files = "Sources/yoga/{Yoga,YGEnums,YGMacros}.h", "Sources/YogaKit/{UIView+Yoga,YGLayout}.h"
 
   # Latest master commit id.
-  s.dependency "Yoga", "~> 1.6.0"
+  spec.dependency "Yoga", "~> 1.6.0"
+  # Should match yoga_defs.bzl + BUCK configuration
+  spec.compiler_flags = [
+     '-fno-omit-frame-pointer',
+     '-fexceptions',
+     '-Wall',
+     '-Werror',
+     '-std=c++1y',
+     '-fPIC'
+  ]
 end

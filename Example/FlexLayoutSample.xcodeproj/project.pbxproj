@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2245F067A40DB6A13F97F202 /* Pods_FlexLayoutSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82FCE524E22C2FF5BC4DFBAB /* Pods_FlexLayoutSample.framework */; };
-		242AECE21FA011630024E7C2 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242AECDE1FA011630024E7C2 /* BaseView.swift */; };
 		242AECE31FA011630024E7C2 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242AECDF1FA011630024E7C2 /* BaseViewController.swift */; };
 		242AECE41FA011630024E7C2 /* BasicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242AECE01FA011630024E7C2 /* BasicView.swift */; };
 		242AECE51FA011630024E7C2 /* Stylesheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242AECE11FA011630024E7C2 /* Stylesheet.swift */; };
@@ -62,7 +61,6 @@
 
 /* Begin PBXFileReference section */
 		0D0595B5E0950936D037ECF2 /* Pods-FlexLayoutSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlexLayoutSample.release.xcconfig"; path = "../Pods/Target Support Files/Pods-FlexLayoutSample/Pods-FlexLayoutSample.release.xcconfig"; sourceTree = "<group>"; };
-		242AECDE1FA011630024E7C2 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		242AECDF1FA011630024E7C2 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		242AECE01FA011630024E7C2 /* BasicView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicView.swift; sourceTree = "<group>"; };
 		242AECE11FA011630024E7C2 /* Stylesheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stylesheet.swift; sourceTree = "<group>"; };
@@ -120,7 +118,6 @@
 		242AECDD1FA011630024E7C2 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				242AECDE1FA011630024E7C2 /* BaseView.swift */,
 				242AECDF1FA011630024E7C2 /* BaseViewController.swift */,
 				242AECE01FA011630024E7C2 /* BasicView.swift */,
 				242AECE11FA011630024E7C2 /* Stylesheet.swift */,
@@ -354,8 +351,8 @@
 				DF1F2A181F17D11700BA1B97 /* Resources */,
 				DF1F2A1B1F17D11700BA1B97 /* Embed Frameworks */,
 				DF1F2A1C1F17D11700BA1B97 /* [CP] Embed Pods Frameworks */,
-				DF1F2A1D1F17D11700BA1B97 /* [CP] Copy Pods Resources */,
 				DF1F2A1E1F17D11700BA1B97 /* Run Swiftlint */,
+				CCD626B6F33E006A67B5102C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -373,8 +370,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Mirego;
+				TargetAttributes = {
+					DF1F2A051F17D11700BA1B97 = {
+						LastSwiftMigration = 0930;
+					};
+				};
 			};
 			buildConfigurationList = 249EFE3A1E64FAFE00165E39 /* Build configuration list for PBXProject "FlexLayoutSample" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -408,6 +410,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		CCD626B6F33E006A67B5102C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-FlexLayoutSample/Pods-FlexLayoutSample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		DF1F2A061F17D11700BA1B97 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -434,35 +451,20 @@
 			inputPaths = (
 				"${SRCROOT}/../Pods/Target Support Files/Pods-FlexLayoutSample/Pods-FlexLayoutSample-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/FlexLayout/FlexLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/Yoga/yoga.framework",
 				"${BUILT_PRODUCTS_DIR}/PinLayout/PinLayout.framework",
 				"${PODS_ROOT}/Reveal-SDK/RevealServer-10/iOS/RevealServer.framework",
-				"${BUILT_PRODUCTS_DIR}/Yoga/yoga.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlexLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PinLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-FlexLayoutSample/Pods-FlexLayoutSample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DF1F2A1D1F17D11700BA1B97 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-FlexLayoutSample/Pods-FlexLayoutSample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DF1F2A1E1F17D11700BA1B97 /* Run Swiftlint */ = {
@@ -490,7 +492,6 @@
 				24E835171F4CC336009F95CC /* RaywenderlichTutorialViewController.swift in Sources */,
 				24FB883D1F59CA8B00615D33 /* TableViewExampleView.swift in Sources */,
 				242AECE41FA011630024E7C2 /* BasicView.swift in Sources */,
-				242AECE21FA011630024E7C2 /* BaseView.swift in Sources */,
 				24AADD4B1F4E177700CB77E6 /* ShowTableViewCell.swift in Sources */,
 				242AECE31FA011630024E7C2 /* BaseViewController.swift in Sources */,
 				24901F0C1F93D40F0025D11B /* CollectionViewExampleView.swift in Sources */,
@@ -547,15 +548,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -578,12 +587,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -597,15 +607,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -622,10 +640,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -635,13 +654,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8561ACDBCFFA1B4B9ABEAB16 /* Pods-FlexLayoutSample.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_INPUT_FILETYPE = automatic;
 				INFOPLIST_FILE = "FlexLayoutSample/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucdion.FlexLayoutSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -649,13 +668,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0D0595B5E0950936D037ECF2 /* Pods-FlexLayoutSample.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_INPUT_FILETYPE = automatic;
 				INFOPLIST_FILE = "FlexLayoutSample/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucdion.FlexLayoutSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

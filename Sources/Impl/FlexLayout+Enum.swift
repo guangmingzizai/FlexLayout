@@ -14,10 +14,6 @@
 
 import UIKit
 
-#if !XCODE_PROJECT_BUILD
-    import yoga
-#endif
-
 extension Flex.Direction {
     var yogaValue: YGFlexDirection {
         switch self {
@@ -37,6 +33,7 @@ extension Flex.JustifyContent {
         case .end:          return YGJustify.flexEnd
         case .spaceBetween: return YGJustify.spaceBetween
         case .spaceAround:  return YGJustify.spaceAround
+        case .spaceEvenly:  return YGJustify.spaceEvenly
         }
     }
 }
@@ -104,6 +101,15 @@ extension Flex.LayoutDirection {
         case .ltr: return YGDirection.LTR
         case .rtl: return YGDirection.RTL
         default:   return YGDirection.inherit
+        }
+    }
+}
+
+extension Flex.Display {
+    var yogaValue: YGDisplay {
+        switch self {
+        case .flex: return YGDisplay.flex
+        case .none: return YGDisplay.none
         }
     }
 }

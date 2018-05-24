@@ -16,11 +16,12 @@ import UIKit
 import FlexLayout
 import PinLayout
 
-class Example1View: BaseView {
+class Example1View: UIView {
     fileprivate let rootFlexContainer = UIView()
 
-    override init() {
-        super.init()
+    init() {
+        super.init(frame: .zero)
+        backgroundColor = .white
 
         let view1 = BasicView(text: "View 1")
         let view2 = BasicView(text: "View 2")
@@ -44,7 +45,7 @@ class Example1View: BaseView {
 
         // Layout the flexbox container using PinLayout
         // NOTE: Could be also layouted by setting directly rootFlexContainer.frame
-        rootFlexContainer.pin.all().margin(safeArea)
+        rootFlexContainer.pin.all(pin.safeArea)
         
         // Then let the flexbox container layout itself
         rootFlexContainer.flex.layout()

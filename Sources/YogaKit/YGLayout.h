@@ -1,21 +1,14 @@
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import <UIKit/UIKit.h>
-
-#if defined(XCODE_PROJECT_BUILD) || defined(FLEXLAYOUT_USE_CARTHAGE) || defined(USE_YOGAKIT_PACKAGE)
-    #import <YogaKit/Yoga.h>
-    #import <YogaKit/YGEnums.h>
-#else
-    #import <Yoga/Yoga.h>
-    #import <Yoga/YGEnums.h>
-#endif
+#import "YGEnums.h"
+#import "Yoga.h"
+#import "YGMacros.h"
 
 YG_EXTERN_C_BEGIN
 
@@ -28,13 +21,21 @@ YG_EXTERN_C_END
 
 typedef NS_OPTIONS(NSInteger, YGDimensionFlexibility) {
   YGDimensionFlexibilityFlexibleWidth = 1 << 0,
-  YGDimensionFlexibilityFlexibleHeigth = 1 << 1,
+  YGDimensionFlexibilityFlexibleHeight = 1 << 1,
 };
 
 @interface YGLayout : NSObject
 
 /**
-  The property that decides if we should include this view when calculating layout. Defaults to YES.
+ Make default init unavailable, as it will not initialise YGNode which is
+ required for the setters and getters of YGLayout's properties to work properly.
+*/
+- (instancetype)init
+    __attribute__((unavailable("you are not meant to initialise YGLayout")));
+
+/**
+  The property that decides if we should include this view when calculating
+  layout. Defaults to YES.
  */
 @property (nonatomic, readwrite, assign, setter=setIncludedInLayout:) BOOL isIncludedInLayout;
 

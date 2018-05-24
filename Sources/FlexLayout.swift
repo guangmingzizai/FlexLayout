@@ -14,10 +14,6 @@
 
 import UIKit
 
-#if !XCODE_PROJECT_BUILD
-    import yoga
-#endif
-
 /**
  FlexLayout interface.
  
@@ -26,7 +22,7 @@ import UIKit
     label.flex.margin(10)
  ```
  */
-public class Flex {
+public final class Flex {
     
     //
     // MARK: Properties
@@ -35,7 +31,7 @@ public class Flex {
     /**
      Flex items's UIView.
     */
-    public let view: UIView
+    public private(set) weak var view: UIView?
     private let yoga: YGLayout
     
     /**
@@ -95,8 +91,12 @@ public class Flex {
      */
     @discardableResult
     public func addItem(_ view: UIView) -> Flex {
-        self.view.addSubview(view)
-        return view.flex
+        if let host = self.view {
+            host.addSubview(view)
+            return view.flex
+        } else {
+            preconditionFailure("Trying to modify deallocated host view")
+        }
     }
     
     @discardableResult
@@ -113,25 +113,37 @@ public class Flex {
     
     @discardableResult
     public func insertItem(_ view: UIView, belowSubview siblingSubview: UIView) -> Flex {
-        self.view.insertSubview(view, belowSubview: siblingSubview)
-        return view.flex
+        if let host = self.view {
+            host.insertSubview(view, belowSubview: siblingSubview)
+            return view.flex
+        } else {
+            preconditionFailure("Trying to modify deallocated host view")
+        }
     }
     
     @discardableResult
     public func insertItem(_ view: UIView, aboveSubview siblingSubview: UIView) -> Flex {
-        self.view.insertSubview(view, aboveSubview: siblingSubview)
-        return view.flex
+        if let host = self.view {
+            host.insertSubview(view, aboveSubview: siblingSubview)
+            return view.flex
+        } else {
+            preconditionFailure("Trying to modify deallocated host view")
+        }
     }
 
     @discardableResult
     public func removeAllItems() -> Flex {
-        for subview in view.subviews {
-            subview.removeFromSuperview()
-            subview.flex.markDirty()
-            subview.clearYoga()
-            subview.clearFlex()
+        if let host = self.view {
+            for subview in host.subviews {
+                subview.removeFromSuperview()
+                subview.flex.markDirty()
+                subview.clearYoga()
+                subview.clearFlex()
+            }
+            return host.flex
+        } else {
+            preconditionFailure("Trying to modify deallocated host view")
         }
-        return view.flex
     }
     
     /**
@@ -161,7 +173,7 @@ public class Flex {
         if case .fitContainer = mode {
             yoga.applyLayout(preservingOrigin: true)
         } else {
-            yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: mode == .adjustWidth ? YGDimensionFlexibility.flexibleWidth : YGDimensionFlexibility.flexibleHeigth)
+            yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: mode == .adjustWidth ? YGDimensionFlexibility.flexibleWidth : YGDimensionFlexibility.flexibleHeight)
         }
     }
     
@@ -205,16 +217,20 @@ public class Flex {
     
     @discardableResult
     public func markAllLabelAndButtonsDirty() -> Flex {
-        for subview in view.subviews {
-            if subview is UILabel {
-                subview.flex.markDirty()
-            } else if subview is UIButton {
-                subview.flex.markDirty()
-            } else if subview.subviews.count > 0 {
-                subview.flex.markAllLabelAndButtonsDirty()
+        if let host = self.view {
+            for subview in host.subviews {
+                if subview is UILabel {
+                    subview.flex.markDirty()
+                } else if subview is UIButton {
+                    subview.flex.markDirty()
+                } else if subview.subviews.count > 0 {
+                    subview.flex.markAllLabelAndButtonsDirty()
+                }
             }
+            return self
+        } else {
+            preconditionFailure("Trying to modify deallocated host view")
         }
-        return self
     }
     
     /**
@@ -579,55 +595,123 @@ public class Flex {
     
     /**
      Set the left edge distance from the container left edge in pixels.
+     This method is valid only when the item position is absolute (`view.flex.position(.absolute)`)
      */
     @discardableResult
     public func left(_ value: CGFloat) -> Flex {
         yoga.left = YGValue(value)
         return self
     }
+
+    /**
+     Set the left edge distance from the container left edge in percentage of its container width.
+     This method is valid only when the item position is absolute (`view.flex.position(.absolute)`)
+     */
+    @discardableResult
+    public func left(_ percent: FPercent) -> Flex {
+        yoga.left = YGValue(value: Float(percent.value), unit: .percent)
+        return self
+    }
     
     /**
      Set the top edge distance from the container top edge in pixels.
+     This method is valid only when the item position is absolute (`view.flex.position(.absolute)`)
      */
     @discardableResult
     public func top(_ value: CGFloat) -> Flex {
         yoga.top = YGValue(value)
         return self
     }
+
+    /**
+     Set the top edge distance from the container top edge in percentage of its container height.
+     This method is valid only when the item position is absolute (`view.flex.position(.absolute)`)
+     */
+    @discardableResult
+    public func top(_ percent: FPercent) -> Flex {
+        yoga.top = YGValue(value: Float(percent.value), unit: .percent)
+        return self
+    }
     
     /**
      Set the right edge distance from the container right edge in pixels.
+     This method is valid only when the item position is absolute (`view.flex.position(.absolute)`)
      */
     @discardableResult
     public func right(_ value: CGFloat) -> Flex {
         yoga.right = YGValue(value)
         return self
     }
-    
+
+    /**
+     Set the right edge distance from the container right edge in percentage of its container width.
+     This method is valid only when the item position is absolute (`view.flex.position(.absolute)`)
+     */
+    @discardableResult
+    public func right(_ percent: FPercent) -> Flex {
+        yoga.right = YGValue(value: Float(percent.value), unit: .percent)
+        return self
+    }
+
     /**
      Set the bottom edge distance from the container bottom edge in pixels.
+     This method is valid only when the item position is absolute (`view.flex.position(.absolute)`)
      */
     @discardableResult
     public func bottom(_ value: CGFloat) -> Flex {
         yoga.bottom = YGValue(value)
         return self
     }
+
+    /**
+     Set the bottom edge distance from the container bottom edge in percentage of its container height.
+     This method is valid only when the item position is absolute (`view.flex.position(.absolute)`)
+     */
+    @discardableResult
+    public func bottom(_ percent: FPercent) -> Flex {
+        yoga.bottom = YGValue(value: Float(percent.value), unit: .percent)
+        return self
+    }
     
     /**
      Set the start edge (LTR=left, RTL=right) distance from the container start edge in pixels.
+     This method is valid only when the item position is absolute (`view.flex.position(.absolute)`)
      */
     @discardableResult
     public func start(_ value: CGFloat) -> Flex {
         yoga.start = YGValue(value)
         return self
     }
+
+    /**
+     Set the start edge (LTR=left, RTL=right) distance from the container start edge in
+     percentage of its container width.
+     This method is valid only when the item position is absolute (`view.flex.position(.absolute)`)
+     */
+    @discardableResult
+    public func start(_ percent: FPercent) -> Flex {
+        yoga.start = YGValue(value: Float(percent.value), unit: .percent)
+        return self
+    }
     
     /**
-     Set the end edge (LTR=right, RTL=left) distance from the container start edge in pixels.
+     Set the end edge (LTR=right, RTL=left) distance from the container end edge in pixels.
+     This method is valid only when the item position is absolute (`view.flex.position(.absolute)`)
      */
     @discardableResult
     public func end(_ value: CGFloat) -> Flex {
         yoga.end = YGValue(value)
+        return self
+    }
+
+    /**
+     Set the end edge (LTR=right, RTL=left) distance from the container end edge in
+     percentage of its container width.
+     This method is valid only when the item position is absolute (`view.flex.position(.absolute)`)
+     */
+    @discardableResult
+    public func end(_ percent: FPercent) -> Flex {
+        yoga.end = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
     
@@ -1025,7 +1109,24 @@ public class Flex {
     */
     @discardableResult
     public func backgroundColor(_ color: UIColor) -> Flex {
-        view.backgroundColor = color
+        if let host = self.view {
+            host.backgroundColor = color
+            return self
+        } else {
+            preconditionFailure("Trying to modify deallocated host view")
+        }
+    }
+    
+    //
+    // MARK: Display
+    //
+    
+    /**
+     Set the view display or not
+     */
+    @discardableResult
+    public func display(_ value: Display) -> Flex {
+        yoga.display = value.yogaValue
         return self
     }
     
@@ -1057,7 +1158,8 @@ public class Flex {
         case spaceBetween
         /// Items are positioned with space before, between, and after the lines
         case spaceAround
-        //case spaceEvenly
+        /// Items are positioned with space distributed evenly, items have equal space around them.
+        case spaceEvenly
     }
     
     /**
@@ -1153,6 +1255,15 @@ public class Flex {
         case adjustWidth
     }
     
+    /**
+     */
+    public enum Display {
+        /// Default value
+        case flex
+        /// With this value, the item will be hidden and not be calculated
+        case none
+    }
+    
     /*public enum Overflow {
      /// Items that overflow
         case visible
@@ -1164,6 +1275,8 @@ public class Flex {
 // MARK: - Scalable
 public extension Flex {
     public func scalable(force: Bool = false, base: ScaleBase = .width, referenceSize: CGSize = CGSize(width: 375, height: 667)) {
+        guard let view = self.view else { return }
+        
         if view.isFlexEnabled && view.isYogaEnabled && (!scaled || force) {
             if isScalable && isWholeScalable {
                 scalableYoga(yoga: yoga, base: base, referenceSize: referenceSize)
