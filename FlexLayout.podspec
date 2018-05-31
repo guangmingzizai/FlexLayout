@@ -13,7 +13,6 @@ Pod::Spec.new do |spec|
   spec.public_header_files = "Sources/yoga/{Yoga,YGEnums,YGMacros}.h", "Sources/YogaKit/{UIView+Yoga,YGLayout}.h"
 
   # Latest master commit id.
-  spec.dependency "Yoga", "~> 1.6.0"
   # Should match yoga_defs.bzl + BUCK configuration
   spec.compiler_flags = [
      '-fno-omit-frame-pointer',
