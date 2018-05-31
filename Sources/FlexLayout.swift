@@ -93,6 +93,12 @@ public final class Flex {
     public func addItem(_ view: UIView) -> Flex {
         if let host = self.view {
             host.addSubview(view)
+            
+            // calculate width smaller a little in some occasions
+            // fix with paddingEnd temporarily
+            if view is UILabel {
+                view.flex.paddingEnd(0.1)
+            }
             return view.flex
         } else {
             preconditionFailure("Trying to modify deallocated host view")
