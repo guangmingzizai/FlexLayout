@@ -8,7 +8,7 @@
 import UIKit
 
 public extension UILabel {
-    public var flex_text: String? {
+    var flex_text: String? {
         get {
             return text
         }
@@ -18,7 +18,7 @@ public extension UILabel {
         }
     }
     
-    public var flex_attributedText: NSAttributedString? {
+    var flex_attributedText: NSAttributedString? {
         get {
             return attributedText
         }
