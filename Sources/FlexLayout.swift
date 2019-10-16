@@ -187,9 +187,12 @@ public final class Flex {
      This property controls dynamically if a flexbox's UIView is included or not in the flexbox layouting. When a
      flexbox's UIView is excluded, FlexLayout won't layout the view and its children views.
     */
-    public var isIncludedInLayout: Bool = true {
-        didSet {
-            yoga.isIncludedInLayout = isIncludedInLayout
+    public var isIncludedInLayout: Bool {
+        get {
+            return yoga.isIncludedInLayout
+        }
+        set {
+            yoga.isIncludedInLayout = newValue
         }
     }
     
@@ -396,7 +399,7 @@ public final class Flex {
      A shrink value of 0 keeps the view's size in the main-axis direction. Note that this may cause the view to 
      overflow its flex container.
     
-     - Parameter value: Default value is 1
+     - Parameter value: Default value is 0
     */
     @discardableResult
     public func shrink(_ value: CGFloat) -> Flex {
@@ -416,6 +419,19 @@ public final class Flex {
     @discardableResult
     public func basis(_ value: CGFloat?) -> Flex {
         yoga.flexBasis = valueOrAuto(value)
+        return self
+    }
+
+    /**
+     This property takes the same values as the width and height properties, and specifies the initial size of the
+     flex item, before free space is distributed according to the grow and shrink factors.
+    
+     Specifying `nil` set the basis as `auto`, which means the length is equal to the length of the item. If the 
+     item has no length specified, the length will be according to its content.
+    */
+    @discardableResult
+    public func basis(_ percent: FPercent) -> Flex {
+        yoga.flexBasis = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
 
@@ -718,6 +734,76 @@ public final class Flex {
     @discardableResult
     public func end(_ percent: FPercent) -> Flex {
         yoga.end = YGValue(value: Float(percent.value), unit: .percent)
+        return self
+    }
+    
+    /**
+      Set the left and right edges distance from the container edges in pixels.
+      This method is valid only when the item position is absolute (`view.flex.position(.absolute)`)
+      */
+    @discardableResult
+    public func horizontally(_ value: CGFloat) -> Flex {
+        yoga.left = YGValue(value)
+        yoga.right = YGValue(value)
+        return self
+     }
+
+     /**
+      Set the left and right edges distance from the container edges in percentage of its container width.
+      This method is valid only when the item position is absolute (`view.flex.position(.absolute)`)
+      */
+    @discardableResult
+    public func horizontally(_ percent: FPercent) -> Flex {
+        yoga.left = YGValue(value: Float(percent.value), unit: .percent)
+        yoga.right = YGValue(value: Float(percent.value), unit: .percent)
+        return self
+    }
+    
+    /**
+     Set the top and bottom edges distance from the container edges in pixels.
+     This method is valid only when the item position is absolute (`view.flex.position(.absolute)`)
+     */
+    @discardableResult
+    public func vertically(_ value: CGFloat) -> Flex {
+        yoga.top = YGValue(value)
+        yoga.bottom = YGValue(value)
+        return self
+    }
+    
+    /**
+     Set the top and bottom edges distance from the container edges in percentage of its container height.
+     This method is valid only when the item position is absolute (`view.flex.position(.absolute)`)
+     */
+    @discardableResult
+    public func vertically(_ percent: FPercent) -> Flex {
+        yoga.top = YGValue(value: Float(percent.value), unit: .percent)
+        yoga.bottom = YGValue(value: Float(percent.value), unit: .percent)
+        return self
+    }
+    
+    /**
+     Set all edges distance from the container edges in pixels.
+     This method is valid only when the item position is absolute (`view.flex.position(.absolute)`)
+     */
+    @discardableResult
+    public func all(_ value: CGFloat) -> Flex {
+        yoga.top = YGValue(value)
+        yoga.left = YGValue(value)
+        yoga.bottom = YGValue(value)
+        yoga.right = YGValue(value)
+        return self
+    }
+    
+    /**
+     Set all edges distance from the container edges in percentage of its container size.
+     This method is valid only when the item position is absolute (`view.flex.position(.absolute)`)
+     */
+    @discardableResult
+    public func all(_ percent: FPercent) -> Flex {
+        yoga.top = YGValue(value: Float(percent.value), unit: .percent)
+        yoga.left = YGValue(value: Float(percent.value), unit: .percent)
+        yoga.bottom = YGValue(value: Float(percent.value), unit: .percent)
+        yoga.right = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
     
@@ -1096,7 +1182,7 @@ public final class Flex {
      */
     @discardableResult
     public func padding(_ top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) -> Flex {
-        yoga.padding = YGValue(top)
+        yoga.paddingTop = YGValue(top)
         yoga.paddingLeft = YGValue(left)
         yoga.paddingBottom = YGValue(bottom)
         yoga.paddingRight = YGValue(right)
@@ -1197,7 +1283,8 @@ public final class Flex {
         /// Items are positioned at the end of the container
         case end
         /// Items are positioned at the baseline of the container
-        case baseline
+        // Not currently supported by Yoga.
+        //case baseline
     }
     
     /**

@@ -28,7 +28,7 @@ Flexbox is an incredible improvement over UIStackView. It is simpler to use, muc
 
 ### Requirements
 * iOS 8.0+
-* Xcode 8.0+ / Xcode 9.0
+* Xcode 8.0+ / Xcode 9.0+
 * Swift 3.0+ / Swift 4.0
 
 ### Content
@@ -47,7 +47,6 @@ Flexbox is an incredible improvement over UIStackView. It is simpler to use, muc
 		* [Aspect Ratio](#aspect_ratio)
 	* [Margins](#margins)
 	* [Paddings](#paddings)
-	* [Borders](#borders)
 * [API Documentation](#api_documentation)
 * [Examples App](#examples_app)
 * [FAQ](#faq)
@@ -62,9 +61,9 @@ Flexbox is an incredible improvement over UIStackView. It is simpler to use, muc
 
 ### FlexLayout + PinLayout
 
-<a href="https://github.com/mirego/PinLayout"><img src="docs_markdown/images/flexlayout_plus_pinlayout_small.png" alt="FlexLayout" width="250"/></a>
+<a href="https://github.com/layoutBox/PinLayout"><img src="docs_markdown/images/flexlayout_plus_pinlayout_small.png" alt="FlexLayout" width="250"/></a>
 
-**FlexLayout** is a companion of **[PinLayout](https://github.com/mirego/PinLayout)**. They share a similar syntax and method names. PinLayout is a layout framework greatly inspired by CSS absolute positioning, it is particularly useful for greater fine control and animations. It gives you full control by layouting one view at a time (simple to code and debug).
+**FlexLayout** is a companion of **[PinLayout](https://github.com/layoutBox/PinLayout)**. They share a similar syntax and method names. PinLayout is a layout framework greatly inspired by CSS absolute positioning, it is particularly useful for greater fine control and animations. It gives you full control by layouting one view at a time (simple to code and debug).
 
 * A view can be layouted using FlexLayout, PinLayout, or both!
 * PinLayout can layout anything, but in situations where you need to layout many views but don't require PinLayout's finest control nor complex animations, FlexLayout is best fitted. 
@@ -222,7 +221,7 @@ NOTE: FlexLayout wraps [facebook/yoga](https://github.com/facebook/yoga) impleme
 <a name="performance"></a>
 # FlexLayout's Performance 
 
-FlexLayout's performance has been measured using the [Layout Framework Benchmark](https://github.com/layoutBox/LayoutFrameworkBenchmark). FlexLayout and [PinLayout](https://github.com/mirego/PinLayout) has been added to this benchmark to compare their performance. 
+FlexLayout's performance has been measured using the [Layout Framework Benchmark](https://github.com/layoutBox/LayoutFrameworkBenchmark). FlexLayout and [PinLayout](https://github.com/layoutBox/PinLayout) has been added to this benchmark to compare their performance. 
 
 As you can see in the following chart, FlexLayout and PinLayout's performance are faster or equal to manual layouting. FlexLayout and PinLayout are **between 8x and 12x faster than UIStackViews**, and this for all types of iPhone (5S/6/6S/7/8/X)
 
@@ -291,10 +290,9 @@ The flex layout is constituted of parent container referred as **flex container*
 When working with StackViews you need to think in terms of two axes — the main axis and the cross axis. The main axis is defined by StackView's `direction` property, and the cross axis runs perpendicular to it.
 
 | StackView direction | Axes |
-|---------------------|:------------------:|---------|
-| **column** (default) 	| <img src="docs_markdown/images/axis-column.png" width="200"/> |
-| **row** | <img src="docs_markdown/images/axis-row.png" width="200"/>|
-
+| --- | --- |
+| **column** (default) | <img src="docs_markdown/images/axis-column.png" width="200"/> |
+| **row** | <img src="docs_markdown/images/axis-row.png" width="200"/> |
 
 ##### Sections
 
@@ -516,7 +514,7 @@ The `justifyContent` property defines the alignment along the main-axis of the c
 
 ### alignItems()
 - Applies to: `flex containers`
-- Values: `stretch` / `start` / `end` / `center` / `baseline`
+- Values: `stretch` / `start` / `end` / `center`
 - Default value: `stretch `
 - CSS name: `align-items` 
 
@@ -532,7 +530,9 @@ The `alignItems` property defines how flex items are laid out along the cross ax
 | **start**	| <img src="docs_markdown/images/flexlayout-align-column-flexStart.png" width="140"/>| <img src="docs_markdown/images/flexlayout-align-row-flexStart.png" width="160"/>|
 | **end**	| <img src="docs_markdown/images/flexlayout-align-column-flexEnd.png" width="140"/>| <img src="docs_markdown/images/flexlayout-align-row-flexEnd.png" width="160"/>|
 | **center** 	| <img src="docs_markdown/images/flexlayout-align-column-center.png" width="140"/>| <img src="docs_markdown/images/flexlayout-align-row-center.png" width="160"/>|
-| **baseline** 	| | <img src="docs_markdown/images/flexlayout-align-row-baseline.png" width="160"/>|
+
+NOTE: alignItems `.baseline` is not currently supported by FlexLayout/Yoga.
+
 
 <br/>
 
@@ -677,6 +677,10 @@ This property takes the same values as the width and height properties, and spec
 
   Specifying `nil` set the basis as `auto`, which means the length is equal to the length of the item. If the item has no length specified, the length will be according to its content 
 
+* **`basis(_ : FPercent)`**   
+This property takes the same values as the width and height properties, and specifies the initial size of the flex item, before free space is distributed according to the grow and shrink factors. 
+
+
 <br>
 
 ### isIncludedInLayout()
@@ -776,7 +780,7 @@ The position property tells Flexbox how you want your item to be positioned with
   view.flex.position(.absolute).top(10).left(10).size(50)
 ```
 
-### top(), bottom(), left(), right(), start(), end()
+### top(), bottom(), left(), right(), start(), end(), vertically(), horizontally(), all()
 A flex item which is `position` is set to `.absolute` is positioned absolutely in regards to its parent. This is done through the following methods:
 
 **Methods:**
@@ -793,6 +797,12 @@ Controls the distance a child’s right edge is from the parent’s right edge.
 Controls the distance a child’s start edge is from the parent’s start edge. In left-to-right direction (LTR), it corresponds to the `left()` property and in RTL to `right()` property.
 * **`end(: CGFloat)`** / **`end(: FPercent)`**:  
 Controls the distance a child’s end edge is from the parent’s end edge. In left-to-right direction (LTR), it corresponds to the `right()` property and in RTL to `left()` property.
+* **`vertically(: CGFloat)`** / **`vertically(: FPercent)`**:  
+Controls the distance child’s top and bottom edges from the parent’s edges. Equal to `top().bottom()`.
+* **`horizontally(: CGFloat)`** / **`horizontally(: FPercent)`**:  
+Controls the distance child’s left and right edges from the parent’s edges. Equal to `left().right()`.
+* **`all(: CGFloat)`** / **`all(: FPercent)`**:  
+Controls the distance child’s edges from the parent’s edges. Equal to `top().bottom().left().right()`.
 
 Using these properties you can control the size and position of an absolute item within its parent. Because absolutely positioned children don’t affect their sibling's layout. Absolute position can be used to create overlays and stack children in the Z axis.
 
@@ -979,23 +989,6 @@ Set all paddings using an NSDirectionalEdgeInsets. This method is particularly u
 
 <br>
 
-<a name="borders"></a>
-## 8. Borders 
-Border behaves nearly identically to Padding and is only separate from Padding to make it easier to implement border effect such as color.
-
-**Methods:**
-
-* `borderLeft(_ value: CGFloat)`
-* `borderTop(_ value: CGFloat)`
-* `borderRight(_ value: CGFloat)`
-* `borderBottom(_ value: CGFloat)`
-* `borderStart(_ value: CGFloat)`
-* `borderEnd(_ value: CGFloat)`
-* `border(_ value: CGFloat)`
-
-<br>
-
-
 <a name="uiview_methods"></a>
 ## 9. Extra UIView methods 
 FlexLayout also adds methods to set common UIView properties.
@@ -1119,5 +1112,5 @@ FlexLayout recent history is available in the are documented in the [CHANGELOG](
 <br>
 
 ## License
-BSD 3-Clause License 
+MIT License 
 

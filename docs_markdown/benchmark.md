@@ -8,7 +8,7 @@
 ## Methodology  <a name="methodology"></a>
 
 ### Layout Framework Benchmark
-FlexLayout and [PinLayout](https://github.com/mirego/PinLayout) performance has been benchmarked using [Layout Framework Benchmark](https://github.com/layoutBox/LayoutFrameworkBenchmark). 
+FlexLayout and [PinLayout](https://github.com/layoutBox/PinLayout) performance has been benchmarked using [Layout Framework Benchmark](https://github.com/layoutBox/LayoutFrameworkBenchmark). 
 
 The benchmark includes the following layout frameworks:
 
@@ -16,7 +16,7 @@ The benchmark includes the following layout frameworks:
 * [FlexLayout](https://github.com/layoutBox/FlexLayout)
 * [LayoutKit](https://github.com/linkedin/LayoutKit)
 * Manual layout (i.e. set UIView's frame directly)
-* [PinLayout](https://github.com/mirego/PinLayout)
+* [PinLayout](https://github.com/layoutBox/PinLayout)
 * UIStackViews
 
 <br>
@@ -32,7 +32,7 @@ As you can see in the following chart, PinLayout are faster or equal to manual l
 
 The benchmark layout UICollectionView and UITableView cells in multiple pass, each pass contains more cells than the previous one. 
 
-<img src="benchmark/benchmark_comparison_all.png" alt="PinLayout Performance"/></a>
+<img src="benchmark/benchmark_comparison_all_small.png" alt="PinLayout Performance"/></a>
 
 See [Layout Framework Benchmark](https://github.com/layoutBox/LayoutFrameworkBenchmark) for complete details and benchmarks charts for iPhone X/8/7/6S/...
 
